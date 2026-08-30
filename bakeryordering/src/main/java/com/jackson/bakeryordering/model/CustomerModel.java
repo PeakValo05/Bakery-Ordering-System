@@ -76,4 +76,8 @@ public class CustomerModel {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
+    
+    public CustomerModel() {
+        // Default constructor
+    }
 }

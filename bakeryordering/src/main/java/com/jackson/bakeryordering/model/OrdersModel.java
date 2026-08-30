@@ -8,6 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
 @Entity
@@ -19,8 +21,9 @@ public class OrdersModel {
     @Column(name = "orders_id")
     private Long orderId;
 
-    @Column(name = "customers_id")
-    private Long customersId;
+    @ManyToOne
+    @JoinColumn(name = "customers_id", nullable = false)
+    private CustomerModel customer;
 
     @Column(name = "pickup_date")
     private LocalDate pickupDate;
@@ -34,9 +37,6 @@ public class OrdersModel {
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
-
-
-
     public Long getOrderId() {
         return orderId;
     }
@@ -45,20 +45,12 @@ public class OrdersModel {
         this.orderId = orderId;
     }
 
-    public Long getCustomerId() {
-        return customersId;
-    }
-    
-    public void setCustomersId(Long customersId) {
-        this.customersId = customersId;
+    public CustomerModel getCustomer() {
+        return customer;
     }
 
-    public LocalDate getOrderDate() {
-        return orderDate;
-    }
-
-    public void setOrderDate(LocalDate orderDate) {
-        this.orderDate = orderDate;
+    public void setCustomer(CustomerModel customer) {
+        this.customer = customer;
     }
 
     public LocalDate getPickupDate() {
@@ -67,6 +59,14 @@ public class OrdersModel {
 
     public void setPickupDate(LocalDate pickupDate) {
         this.pickupDate = pickupDate;
+    }
+
+    public LocalDate getOrderDate() {
+        return orderDate;
+    }
+
+    public void setOrderDate(LocalDate orderDate) {
+        this.orderDate = orderDate;
     }
 
     public String getOrderStatus() {
@@ -85,5 +85,3 @@ public class OrdersModel {
         this.totalPrice = totalPrice;
     }
 }
-
-    // Removed getter and setter for quantity as it no longer exists

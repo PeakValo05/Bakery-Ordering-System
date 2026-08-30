@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.jackson.bakeryordering.model.CustomerModel;
+import com.jackson.bakeryordering.model.OrdersModel;
 import com.jackson.bakeryordering.service.CustomerService;
 import com.jackson.bakeryordering.service.OrdersService;
+
+
 
 
 
@@ -59,7 +62,7 @@ public String displayAddCustomerPage(Model model) {
     logger.info("Exiting displayAddCustomerPage");
     return "add-customer";
 }
-
+// Save the order
 @PostMapping("/customers/save")
 public String saveCustomer(
         @ModelAttribute("customer") CustomerModel customer) {
@@ -79,6 +82,8 @@ public String displayEditCustomerPage(@PathVariable("id") Long id, Model model) 
     model.addAttribute("customer", customer);
     return "edit-customer";
 }
+
+// Save the edited customer
 @PostMapping("/customers/update")
 public String editCustomer(@ModelAttribute("customer") CustomerModel customer) {
     logger.info("Entering editCustomer");
@@ -89,10 +94,7 @@ public String editCustomer(@ModelAttribute("customer") CustomerModel customer) {
     return "redirect:/customers";
 }
 
-
-
-
-
+// Delete a customer
 @GetMapping("/customers/delete/{id}")
 public String deleteCustomer(@PathVariable("id") Long id) {
     logger.info("Entering deleteCustomer");
@@ -100,5 +102,83 @@ public String deleteCustomer(@PathVariable("id") Long id) {
     logger.info("Customer deleted successfully");
     return "redirect:/customers";
 }
+
+// Display all orders
+    @GetMapping("/orders")
+    public String viewOrders(Model model) {
+        logger.info("Entering viewOrders");
+
+        model.addAttribute("orders", ordersService.getAllOrders());
+
+        logger.info("Exiting viewOrders");
+        return "orders";
+    }
+
+        // Display the add order page
+@GetMapping("/orders/add")
+public String displayAddOrder(Model model) {
+
+    OrdersModel order = new OrdersModel();
+    order.setCustomer(new CustomerModel());
+
+    model.addAttribute("order", order);
+    model.addAttribute("customers", customersService.getAllCustomers());
+
+    return "add-order";
+}
+
+// Save the order
+@PostMapping("/orders/save")
+public String saveOrder(
+        @ModelAttribute("order") OrdersModel order) {
+
+    Long customerId = order.getCustomer().getCustomerId();
+    CustomerModel customer =
+            customersService.getCustomerById(customerId);
+
+    if (customer == null) {
+        return "redirect:/orders/add";
+    }
+
+    order.setCustomer(customer);
+    ordersService.saveOrder(order);
+
+    return "redirect:/orders";
+}
+// Display the edit order page
+@GetMapping("/orders/edit/{id}")
+public String displayEditOrderPage(@PathVariable("id") Long id, Model model) {
+    OrdersModel order = ordersService.getOrderById(id);
+    model.addAttribute("order", order);
+    model.addAttribute("customers", customersService.getAllCustomers());
+    return "edit-order";
+}
+// Save the edited order
+@PostMapping("/orders/update")
+public String editOrder(@ModelAttribute("order") OrdersModel order) {
+
+    Long customerId = order.getCustomer().getCustomerId();
+    CustomerModel customer = customersService.getCustomerById(customerId);
+
+    if (customer == null) {
+        return "redirect:/orders/edit/" + order.getOrderId();
+    }
+
+    order.setCustomer(customer);
+    ordersService.saveOrder(order);
+
+    return "redirect:/orders";
+}
+
+
+@GetMapping("/orders/delete/{id}")
+public String deleteOrder(@PathVariable("id") Long id) {
+    logger.info("Entering deleteOrder");
+    ordersService.deleteOrder(id);
+    logger.info("Order deleted successfully");
+    return "redirect:/orders";
+}
+
+
 
 }
