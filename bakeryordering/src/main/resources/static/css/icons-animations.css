@@ -1,0 +1,11 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.nav-link img {
+    transition: transform 0.2s ease;
+}
+
+.nav-link:hover img {
+    transform: scale(1.2);
+}

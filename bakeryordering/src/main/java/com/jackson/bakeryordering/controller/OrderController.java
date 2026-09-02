@@ -17,7 +17,7 @@ import com.jackson.bakeryordering.service.OrdersService;
 
 
 
-
+// Controller class for handling order-related requests
 @Controller
 public class OrderController {
 
@@ -41,67 +41,6 @@ public class OrderController {
         return "login";
     }
 
-    // Display all orders
-    @GetMapping("/customers")
-    public String viewCustomers(Model model) {
-        logger.info("Entering viewCustomers");
-
-        model.addAttribute("customers", customersService.getAllCustomers());
-
-        logger.info("Exiting viewCustomers");
-        return "customers";
-    }
-
-    // Display the add order page
-@GetMapping("/customers/add")
-public String displayAddCustomerPage(Model model) {
-    logger.info("Entering displayAddCustomerPage");
-
-    model.addAttribute("customer", new CustomerModel());
-
-    logger.info("Exiting displayAddCustomerPage");
-    return "add-customer";
-}
-// Save the order
-@PostMapping("/customers/save")
-public String saveCustomer(
-        @ModelAttribute("customer") CustomerModel customer) {
-
-    logger.info("Entering saveCustomer");
-
-    customersService.saveCustomer(customer);
-
-    logger.info("Customer saved successfully");
-    return "redirect:/customers";
-}
-
-// Display the edit customer page
-@GetMapping("/customers/edit/{id}")
-public String displayEditCustomerPage(@PathVariable("id") Long id, Model model) {
-    CustomerModel customer = customersService.getCustomerById(id);
-    model.addAttribute("customer", customer);
-    return "edit-customer";
-}
-
-// Save the edited customer
-@PostMapping("/customers/update")
-public String editCustomer(@ModelAttribute("customer") CustomerModel customer) {
-    logger.info("Entering editCustomer");
-
-    customersService.saveCustomer(customer);
-
-    logger.info("Customer updated successfully");
-    return "redirect:/customers";
-}
-
-// Delete a customer
-@GetMapping("/customers/delete/{id}")
-public String deleteCustomer(@PathVariable("id") Long id) {
-    logger.info("Entering deleteCustomer");
-    customersService.deleteCustomer(id);
-    logger.info("Customer deleted successfully");
-    return "redirect:/customers";
-}
 
 // Display all orders
     @GetMapping("/orders")

@@ -36,7 +36,7 @@
     <!-- Customer -->
     <div class="mb-3">
         <label for="customer" class="form-label">
-            Customer
+            <b>Customer</b>
         </label>
 
         <select id="customer"
@@ -56,7 +56,7 @@
     <!-- Order Date -->
     <div class="mb-3">
         <label for="orderDate" class="form-label">
-            Order Date
+            <b>Order Date</b>
         </label>
 
         <input type="date"
@@ -69,7 +69,7 @@
     <!-- Pickup Date -->
     <div class="mb-3">
         <label for="pickupDate" class="form-label">
-            Pickup Date
+            <b>Pickup Date</b>
         </label>
 
         <input type="date"
@@ -82,7 +82,7 @@
     <!-- Order Status -->
     <div class="mb-3">
         <label for="orderStatus" class="form-label">
-            Order Status
+            <b>Order Status</b>
         </label>
 
         <select id="orderStatus"
@@ -102,7 +102,7 @@
     <!-- Total Price -->
     <div class="mb-4">
         <label for="totalPrice" class="form-label">
-            Total Price
+            <b>Total Price</b>
         </label>
 
         <input type="number"
@@ -115,21 +115,17 @@
                required>
     </div>
 
-                    <div class="d-flex gap-2">
+    <!-- Submit and Back buttons -->
+    <div class="mb-3 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">
+            Add Order
+        </button>
 
-                        <a th:href="@{/orders}"
-                           class="btn btn-outline-secondary btn-lg w-50">
-                            Cancel
-                        </a>
-
-                        <button type="submit"
-                                class="btn btn-primary btn-lg w-50">
-                            Add Order
-                        </button>
-
-                    </div>
+        <!-- Back button -->
+        <button type="button" class="btn btn-secondary ms-2" onclick="history.back()">
+            Back
+        </button>
     </div>
-
 </form>
 
             </div>

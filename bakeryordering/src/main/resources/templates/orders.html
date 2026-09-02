@@ -2,8 +2,13 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/icons-animations.css">
     <title>Orders</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
 </head>
 <body class="bg-light text-dark">
 
@@ -17,20 +22,84 @@
 
             <ul class="nav flex-column text-left d-flex" style="margin-top: 70px; font-size: 18px; width: 100%; height: calc(100vh - 70px);">
 
+
+                <!-- Orders navigation item -->
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/orders">Orders</a>
+                    <a class="nav-link text-white" href="/orders">
+                        <img src="/images/orders.png"
+                             alt="Orders"
+                             width="30"
+                             height="30"
+                             class="ml-2 orders-icon"
+                    >
+                    Orders
+                    </a>
                 </li>
+
+
+                <!-- Products navigation item -->
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/products">Products</a>
+                    <a class="nav-link text-white" href="/products">
+                        
+                        <img src="/images/products.png"
+                             alt="Products"
+                             width="30"
+                             height="30"
+                             class="ml-2 products-icon"
+                    >
+                    Products
+                    </a>
                 </li>
+                <!-- Customers navigation item -->
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/customers">Customers</a>
+                    <a class="nav-link text-white" href="/customers">
+                        <img src="/images/customers.png"
+                             alt="Customers"
+                             width="30"
+                             height="30"
+                             class="ml-2 customers-icon"
+                    >
+                    Customers
+                    </a>
                 </li>
+
+                <!-- Staff navigation item -->
+                <li>
+                    <a class="nav-link text-white" style="object-fit: contain;" href="/staff">
+                        <img src="/images/staff.png"
+                             alt="Staff"
+                             width="30"
+                             height="30"
+                             class="ml-2 someicon-icon"
+                        >
+                        Staff
+                    </a>
+                </li>
+
+                <!-- Add Order navigation item -->
                 <li class="nav-item">
-                    <a class="nav-link text-white" href="/orders/add">Add Order</a>
+                    <a class="orders-tag nav-link text-white" href="/orders/add">
+                        <img src="/images/addorder.png"
+                             alt="Add Order"
+                             width="30"
+                             height="30"
+                             class="ml-2 addorder-icon"
+                    >
+                        Add Order
+                    </a>
                 </li>
-                <li class="nav-item mt-auto">
-                    <a class="nav-link text-white" href="/">Logout</a>
+
+
+
+                <li class="nav-item mt-auto d-flex justify-content-around">
+                    <a class="nav-link text-white " href="/">
+                        <img src="/images/logout.png"
+                             alt="Logout"
+                             width="50"
+                             height="50"
+                             class="ml-2 logout-icon"
+                    >
+                    </a>
                 </li>
 
             
@@ -86,16 +155,16 @@
                    title="Edit order">
                     <img src="/images/edit.png"
                          alt="Edit"
-                         width="22"
-                         height="22">
+                         width="25"
+                         height="25">
                 </a>
 
                 <a th:href="@{/orders/delete/{id}(id=${order.orderId})}"
                    title="Delete order">
                     <img src="/images/delete.png"
                          alt="Delete"
-                         width="22"
-                         height="22"
+                         width="25"
+                         height="25"
                          onclick="return confirm('Are you sure you want to delete this order?')">
                 </a>
             </td>
