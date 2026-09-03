@@ -85,8 +85,8 @@
                     <a class="nav-link text-white" href="/">
                         <img src="/images/logout.png"
                              alt="Logout"
-                             width="70"
-                             height="70"
+                             width="50"
+                             height="50"
                              class="ml-2">
                     </a>
                 </li>
@@ -114,6 +114,7 @@
             <th>Last Name</th>
             <th>Email</th>
             <th>Phone Number</th>
+            <th>Items in Cart</th>
             <th>Actions</th>
             
         </tr>
@@ -126,6 +127,7 @@
             <td th:text="${customer.lastName}"></td>
             <td th:text="${customer.email}"></td>
             <td th:text="${customer.phoneNumber}"></td>
+            <td th:text="${customer.itemsInCart}"></td>
             <td>
                 <a th:href="@{/customers/edit/{id}(id=${customer.customerId})}"
                    title="Edit customer">

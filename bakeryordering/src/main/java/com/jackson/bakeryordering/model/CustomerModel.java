@@ -31,8 +31,10 @@ public class CustomerModel {
     @Column(name = "phone_number")
     private String phoneNumber;
 
-    // Removed duplicate fields for firstName, lastName, email, and phoneNumber
+    @Column(name = "items_in_cart")
+    private int itemsInCart;
 
+    // Removed duplicate fields for firstName, lastName, email, and phoneNumber
 
     public Long getCustomerId() {
         return customerId;
@@ -75,6 +77,14 @@ public class CustomerModel {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public int getItemsInCart() {
+        return itemsInCart;
+    }
+
+    public void setItemsInCart(int itemsInCart) {
+        this.itemsInCart = itemsInCart;
     }
     
     public CustomerModel() {
