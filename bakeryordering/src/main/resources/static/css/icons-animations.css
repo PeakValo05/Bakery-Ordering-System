@@ -9,3 +9,19 @@ body {
 .nav-link:hover img {
     transform: scale(1.2);
 }
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #343a40;
+    border-radius: 8px;
+
+}
+
+.nav-link.active img {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}
+.tbody {
+    background-color: #2374c5; /* Light gray background for table body */
+    transition: all 0.2s ease;
+}
