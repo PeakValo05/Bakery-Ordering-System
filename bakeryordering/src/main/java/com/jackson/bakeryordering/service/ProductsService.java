@@ -1,4 +1,5 @@
 package com.jackson.bakeryordering.service;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
@@ -34,4 +35,8 @@ public class ProductsService {
 public long getTotalProducts() {
     return productsRepository.count();
 }
+
+    public List<ProductsModel> searchProducts(String searchTerm) {
+        return productsRepository.findByProductNameContainingIgnoreCase(searchTerm);
+    }
 }

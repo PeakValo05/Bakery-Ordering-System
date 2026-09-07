@@ -26,7 +26,7 @@
 
                 <!-- Orders navigation item -->
                 <li class="nav-item">
-                    <a class="nav-link text-white active" href="/orders">
+                    <a class="nav-link text-white" href="/orders">
                         <img src="/svg images/shopping-cart-11-svgrepo-com.svg"
                              alt="Orders"
                              width="25"
@@ -86,7 +86,7 @@
                              alt="Add Order"
                              width="25"
                              height="25"
-                             class="ml-2 addorder-icon" style="filter: invert(100%);"
+                             class="ml-2 addorder-icon" style="filter: invert(100%); margin-bottom: 5px;"
                     >
                         Add Order
                     </a>
@@ -111,7 +111,7 @@
 
             <!-- Inventory navigation item -->
             <li class="nav-item">
-                <a class="nav-link text-white" href="/inventory">
+                <a class="nav-link text-white active" href="/inventory">
                     <img src="/svg images/inventory-svgrepo-com.svg"
                          alt="Inventory"
                          width="25"
@@ -120,7 +120,6 @@
                     Inventory
                 </a>
             </li>
-
 
 
                 <li class="nav-item mt-auto d-flex justify-content-around" style="margin-top: auto; margin-right: 20px;">
@@ -222,34 +221,117 @@
     </div>
 
     <!--Low stock items-->
-    <div class="total-low-stock"
-         style="text-align: left; background-color: #ffffff; border-radius: 10px; width: 25%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px;">
+<div class="total-low-stock"
+     style="text-align: left; background-color: #ffffff; border-radius: 10px; width: 25%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px;">
 
-         <div style="display: flex; gap: 10px;">
-            <div style="background-color: rgb(247, 223, 14); border-radius: 50%; width: 35px; height: 35px; display: flex; align-items: center; justify-content: center;">
-             <img src="/svg images/warning-svgrepo-com.svg"
-              alt="Low Stock Items"
-              width="35"
-              height="35"
-              class="ml-2" style="filter: invert(100%);">
-              </div>
-         
-        <p style="opacity: 0.7; margin: 0 0 0px 0; margin-top: 5px;">
-            Low Stock Items
-        </p>
+    <div style="display: flex; gap: 10px;">
+
+        <div style="background-color: rgb(247, 223, 14); border-radius: 50%;
+                    width: 35px; height: 35px; display: flex;
+                    align-items: center; justify-content: center;">
+
+            <img src="/svg images/warning-svgrepo-com.svg"
+                 alt="Low Stock Items"
+                 width="35"
+                 height="35"
+                 style="filter: invert(100%);">
         </div>
 
-        <h2 th:text="${lowStockItems}" style="margin: 0 0 0px 0; margin-left: 40px;">
-            0
-        </h2>
-
-        <p style="opacity: 0.7; margin: 0; margin-left: 40px;">
-            Low Stock Items in Inventory
+        <p style="opacity: 0.7; margin: 5px 0 0 0;">
+            Low Stock Items
         </p>
 
     </div>
 
+    <h2 th:text="${lowStockCount}"
+        style="margin: 5px 0 5px 40px;">
+        0
+    </h2>
+
+    <p style="opacity: 0.7; margin: 0 0 0 40px;">
+        Low Stock Items in Inventory
+    </p>
+
 </div>
+</div>
+
+<!-- Search products section -->
+<div style="margin-left: 10%; padding: 40px;">
+
+    <input type="text"
+           style="margin-bottom: 20px; width: 30%; margin-left: auto; margin-right: auto; margin-top: 200px; "
+           name="searchTerm"
+           class="form-control"
+           placeholder="Search products..."
+           required>
+
+    <div id="search-results"
+         style="display: none; width: 50%; margin-left: auto; margin-right: auto; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
+
+        <strong>Search Results:</strong>
+        <div id="search-results-container"></div>
+
+    </div>
+
+</div>
+
+
+<!-- Search products script -->
+<script>
+const searchInput = document.querySelector('input[name="searchTerm"]');
+const resultsDiv = document.getElementById("search-results");
+const resultsContainer = document.getElementById("search-results-container");
+
+searchInput.addEventListener("input", async function () {
+
+    const searchTerm = searchInput.value.trim();
+
+    if (searchTerm.length < 2) {
+        resultsContainer.innerHTML = "";
+        resultsDiv.style.display = "none";
+        return;
+    }
+
+    const response = await fetch(
+        `/inventory/search-products?searchTerm=${encodeURIComponent(searchTerm)}`
+    );
+
+    const products = await response.json();
+
+
+
+    resultsContainer.innerHTML = "";
+    resultsDiv.style.display = "block";
+
+    products.forEach(product => {
+
+        const result = document.createElement("div");
+
+result.innerHTML = `
+    <div style="display:flex; justify-content:space-between; align-items:center;
+                padding:10px; border-bottom:1px solid #ddd;">
+
+        <div>
+            <strong>${product.productName}</strong>
+            <div>$${product.price}</div>
+        </div>
+
+        <button class="btn btn-primary">
+            Add
+        </button>
+
+    </div>
+`;
+
+        resultsContainer.appendChild(result);
+    });
+});
+</script>
+
+
+
+
 
     
 

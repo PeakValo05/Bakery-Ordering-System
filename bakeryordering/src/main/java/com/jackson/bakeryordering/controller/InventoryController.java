@@ -1,14 +1,22 @@
 package com.jackson.bakeryordering.controller;
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.jackson.bakeryordering.model.InventoryModel;
+import com.jackson.bakeryordering.model.ProductsModel;
 import com.jackson.bakeryordering.service.InventoryService;
 import com.jackson.bakeryordering.service.OrdersService;
 import com.jackson.bakeryordering.service.ProductsService;
 import com.jackson.bakeryordering.service.StaffService;
+
+
 
 
 
@@ -34,6 +42,7 @@ public class InventoryController {
         this.staffService = staffService;
         this.ordersService = ordersService;
     }
+// View inventory page
 @GetMapping("/inventory")
 public String viewInventory(Model model) {
 
@@ -62,8 +71,56 @@ public String viewInventory(Model model) {
         ordersService.getTotalOrders()
     );
 
+    model.addAttribute(
+        "lowStockCount",
+        inventoryService.getLowStockItemCount()
+    );
+
     logger.info("Exiting viewInventory");
 
     return "inventory";
+}
+@GetMapping("/inventory/add")
+public String displayAddInventoryItem(Model model) {
+
+    InventoryModel inventoryItem = new InventoryModel();
+
+    model.addAttribute("inventoryItem", inventoryItem);
+    model.addAttribute("products", productsService.getAllProducts());
+    model.addAttribute("staff", staffService.getAllStaff());
+
+    return "add-inv-item";
+}
+
+// Search products in inventory
+@GetMapping("/inventory/search")
+public String searchProducts(
+        @RequestParam("searchTerm") String searchTerm,
+        Model model) {
+
+    model.addAttribute(
+        "searchResults",
+        productsService.searchProducts(searchTerm)
+    );
+
+    model.addAttribute(
+        "inventory",
+        inventoryService.getAllInventory()
+    );
+
+    model.addAttribute(
+        "totalProducts",
+        productsService.getTotalProducts()
+    );
+
+    return "inventory";
+}
+
+@GetMapping("/inventory/search-products")
+@ResponseBody
+public List<ProductsModel> searchProducts(
+        @RequestParam("searchTerm") String searchTerm) {
+
+    return productsService.searchProducts(searchTerm);
 }
 }

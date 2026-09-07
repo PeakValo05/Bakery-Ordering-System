@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+
+    <link rel="stylesheet" href="/css/styles.css">
+
+    <title>Add Inventory Item</title>
+</head>
+
+<body class="bg-light">
+    
+    <div class="container d-flex justify-content-center align-items-center min-vh-100">
+
+        <div class="card border-0 shadow-lg rounded-4 w-100"
+             style="max-width: 550px;">
+
+            <div class="card-body p-4 p-md-5">
+
+                <h2 class="text-center fw-bold mb-2">
+                    Add Inventory Item
+                </h2>
+
+                <p class="text-center text-muted mb-4">
+                    Enter the inventory item information below.
+                </p>
+<form th:action="@{/inventory/save}"
+      th:object="${inventoryItem}"
+      method="post">
+
+    <!-- Customer -->
+    <div class="mb-3">
+        <label for="customer" class="form-label">
+            <b>Customer</b>
+        </label>
+
+        <select id="customer"
+                class="form-select form-select-lg"
+                th:field="*{customer.customerId}"
+                required>
+
+            <option value="">Select a customer</option>
+
+            <option th:each="currentCustomer : ${customers}"
+                    th:value="${currentCustomer.customerId}"
+                    th:text="${currentCustomer.firstName + ' ' + currentCustomer.lastName}">
+            </option>
+        </select>
+    </div>
+
+    <!-- Order Date -->
+    <div class="mb-3">
+        <label for="orderDate" class="form-label">
+            <b>Order Date</b>
+        </label>
+
+        <input type="date"
+               id="orderDate"
+               class="form-control form-control-lg"
+               th:field="*{orderDate}"
+               required>
+    </div>
+
+    <!-- Pickup Date -->
+    <div class="mb-3">
+        <label for="pickupDate" class="form-label">
+            <b>Pickup Date</b>
+        </label>
+
+        <input type="date"
+               id="pickupDate"
+               class="form-control form-control-lg"
+               th:field="*{pickupDate}"
+               required>
+    </div>
+
+    <!-- Order Status -->
+    <div class="mb-3">
+        <label for="orderStatus" class="form-label">
+            <b>Order Status</b>
+        </label>
+
+        <select id="orderStatus"
+                class="form-select form-select-lg"
+                th:field="*{orderStatus}"
+                required>
+
+            <option value="">Select a status</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+            <option value="Ready">Ready for Pickup</option>
+            <option value="Completed">Completed</option>
+            <option value="Cancelled">Cancelled</option>
+        </select>
+    </div>
+
+    <!-- Total Price -->
+    <div class="mb-4">
+        <label for="totalPrice" class="form-label">
+            <b>Total Price</b>
+        </label>
+
+        <input type="number"
+               id="totalPrice"
+               class="form-control form-control-lg"
+               th:field="*{totalPrice}"
+               min="0"
+               step="0.01"
+               placeholder="10.00"
+               required>
+    </div>
+
+    <!-- Submit and Back buttons -->
+    <div class="mb-3 d-flex justify-content-center">
+        <button type="submit" class="btn btn-primary">
+            Add Inventory Item
+        </button>
+
+        <!-- Back button -->
+        <button type="button" class="btn btn-secondary ms-2" onclick="history.back()">
+            Back
+        </button>
+    </div>
+</form>
+
+            </div>
+        </div>
+
+    </div>
+
+</body>
+</html>

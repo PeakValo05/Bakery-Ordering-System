@@ -1,5 +1,7 @@
 package com.jackson.bakeryordering.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.jackson.bakeryordering.model.InventoryModel;
@@ -24,6 +26,16 @@ public class InventoryService {
         inventoryRepository.save(product);
     }
 
+    // Get all inventory items that are low in stock
+    public List<InventoryModel> getLowStockItemsCount() {
+        return inventoryRepository.findLowStockItems();
+    }
+    // Get the count of low stock items
+    public long getLowStockItemCount() {
+        return inventoryRepository.findLowStockItems().size();
+    }
+
+    // Get a product by its id
     public InventoryModel getProductById(Long id) {
         return inventoryRepository.findById(id).orElse(null);
     }
