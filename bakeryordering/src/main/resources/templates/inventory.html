@@ -256,26 +256,87 @@
 </div>
 </div>
 
+
 <!-- Search products section -->
-<div style="margin-left: 10%; padding: 40px;">
+<div style="margin-left: 10%; padding: 40px; margin-top: 200px;">
 
     <input type="text"
-           style="margin-bottom: 20px; width: 30%; margin-left: auto; margin-right: auto; margin-top: 200px; "
            name="searchTerm"
            class="form-control"
            placeholder="Search products..."
-           required>
+           style="width: 30%; margin: 0 auto 20px auto;">
 
-    <div id="search-results"
-         style="display: none; width: 50%; margin-left: auto; margin-right: auto; background: white; padding: 15px; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);">
 
-        <strong>Search Results:</strong>
-        <div id="search-results-container"></div>
+    <table style="width: 100%; table-layout: fixed; table-layout: fixed; background-color: #374e74; color: white; border-radius: 20px; border: none;">
 
+        <thead>
+            <tr>
+                <th style="width: 33.33%;">Bread</th>
+                <th style="width: 33.33%;">Apple Pie</th>
+                <th style="width: 33.33%;">Cherry Pie</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Cake</th>
+                <th style="width: 33.33%;">Danish</th>
+                <th style="width: 33.33%;">Croissant</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Eclair</th>
+                <th style="width: 33.33%;">Macaron</th>
+                <th style="width: 33.33%;">Tart</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Pie</th>
+                <th style="width: 33.33%;">Brownie</th>
+                <th style="width: 33.33%;">Muffin</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Chocolate Donut</th>
+                <th style="width: 33.33%;">Chocolate Cupcake</th>
+                <th style="width: 33.33%;">Hazelnut Beignet</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="item : ${inventory}">
+                <td th:text="${item.product.productName}">Product Name</td>
+                <td th:text="${item.price}">Price</td>
+                <td>
+                    <button class="btn btn-primary">
+                        Add
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="search-results" style="display: none; position: 
+    fixed; margin-bottom: 200px;">
+
+<table class="table"
+       style="width: 70%; table-layout: fixed; border-collapse: collapse; 
+       position: fixed; top: 300px; left: 50%; transform: translateX(-44%); border-radius: 10px; border: none; background-color: #374e74; color: white;">
+
+    <colgroup>
+        <col style="width: 33.33%;">
+        <col style="width: 33.33%;">
+        <col style="width: 33.33%;">
+    </colgroup>
+
+    <thead>
+        <tr>
+            <th style="border: none;">Product Name</th>
+            <th style="border: none;">Price</th>
+            <th style="border: none;">Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="search-results-container">
+    </tbody>
+</table>
     </div>
 
 </div>
-
 
 <!-- Search products script -->
 <script>
@@ -304,29 +365,32 @@ searchInput.addEventListener("input", async function () {
     resultsContainer.innerHTML = "";
     resultsDiv.style.display = "block";
 
-    products.forEach(product => {
+products.forEach(product => {
 
-        const result = document.createElement("div");
+    const result = document.createElement("tr");
 
-result.innerHTML = `
-    <div style="display:flex; justify-content:space-between; align-items:center;
-                padding:10px; border-bottom:1px solid #ddd;">
-
-        <div>
+    result.innerHTML = `
+        <td>
             <strong>${product.productName}</strong>
-            <div>$${product.price}</div>
-        </div>
+        </td>
 
-        <button class="btn btn-primary">
-            Add
-        </button>
+        <td>
+            $${product.price}
+        </td>
 
-    </div>
-`;
+        <td>
+            <button class="btn btn-primary">
+                Add
+            </button>
+        </td>
+    `;
 
-        resultsContainer.appendChild(result);
-    });
+                resultsContainer.appendChild(result);
 });
+
+    //        resultsContainer.appendChild(result);
+});
+
 </script>
 
 
