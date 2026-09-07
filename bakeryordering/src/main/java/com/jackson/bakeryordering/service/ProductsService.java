@@ -31,4 +31,7 @@ public class ProductsService {
         productsRepository.deleteById(id);
     }
 
+public long getTotalProducts() {
+    return productsRepository.count();
+}
 }

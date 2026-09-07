@@ -30,5 +30,8 @@ public class StaffService {
     public void deleteStaff(Long id) {
         staffRepository.deleteById(id);
     }
+    public int getTotalStaff() {
+        return (int) staffRepository.count();
+    }
 
 }

@@ -30,5 +30,9 @@ public class OrdersService {
     public void deleteOrder(Long id) {
         ordersRepository.deleteById(id);
     }
+    
+    public long getTotalOrders() {
+        return ordersRepository.count();
+    }
 
 }

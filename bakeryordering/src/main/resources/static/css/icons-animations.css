@@ -21,7 +21,3 @@ body {
     transform: scale(1.2);
     transition: transform 0.2s ease;
 }
-.tbody {
-    background-color: #2374c5; /* Light gray background for table body */
-    transition: all 0.2s ease;
-}
