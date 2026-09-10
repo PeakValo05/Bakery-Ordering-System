@@ -28,4 +28,4 @@ jobs:
         with:
           heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
           heroku_app_name: bakery-ordering-jackson-c04b2c38e71c
-          heroku_email: YOUR_HEROKU_EMAIL
+          heroku_email: JWiser1@my.gcu.edu
