@@ -1,0 +1,23 @@
+body {
+    font-family: 'Inter', sans-serif;
+}
+
+.nav-link img {
+    transition: transform 0.2s ease;
+}
+
+.nav-link:hover img {
+    transform: scale(1.2);
+}
+
+.nav-link:hover,
+.nav-link.active {
+    background-color: #343a40;
+    border-radius: 8px;
+
+}
+
+.nav-link.active img {
+    transform: scale(1.2);
+    transition: transform 0.2s ease;
+}

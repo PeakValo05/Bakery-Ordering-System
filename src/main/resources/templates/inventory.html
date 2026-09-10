@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/icons-animations.css">
+    <link rel="stylesheet" href="/css/tables.css">
+    <title>Orders</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+<body class="bg-light text-dark">
+
+    <!-- Navigation bar -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark" 
+            style="background-color: #343a40; width: 10%; z-index: 1000; height: 100vh; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; align-items: center; padding-top: 20px;">
+
+            <h1 class="navbar-brand mb-0 h1 text-center" style="font-size: 1.5rem; margin-top: 20px; font-size: 20px;">Orders</h1>
+
+            <hr style="width: 60%; border-top: 2px solid #ffffff; margin: 10px 0; align-items: center; margin-right: 15px;">
+
+            <ul class="nav flex-column text-left d-flex" style="margin-top: 70px; font-size: 18px; width: 100%; height: calc(100vh - 70px);">
+
+
+                <!-- Orders navigation item -->
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/orders">
+                        <img src="/svg images/shopping-cart-11-svgrepo-com.svg"
+                             alt="Orders"
+                             width="25"
+                             height="25"
+                             class="ml-2 orders-icon" style="filter: invert(100%);"
+                    >
+                    Orders
+                    </a>
+                </li>
+
+
+                <!-- Products navigation item -->
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/products">
+                        
+                        <img src="/svg images/products-svgrepo-com.svg"
+                             alt="Products"
+                             width="25"
+                             height="25"
+                             class="ml-2 products-icon" style="filter: invert(100%);"
+                    >
+                    Products
+                    </a>
+                </li>
+
+
+                <!-- Staff navigation item -->
+                <li>
+                    <a class="nav-link text-white" style="object-fit: contain;" href="/staff">
+                        <img src="/svg images/call-center-worker-svgrepo-com.svg"
+                             alt="Staff"
+                             width="25"
+                             height="25"
+                             class="ml-2 someicon-icon" style="filter: invert(100%);"
+                        >
+                        Staff
+                    </a>
+                </li>
+
+                <!-- Customers navigation item -->
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="/customers">
+                        <img src="/svg images/users-svgrepo-com.svg"
+                             alt="Customers"
+                             width="25"
+                             height="25"
+                             class="ml-2" style="filter: invert(100%);">
+                             Customers
+                    </a>
+                </li>
+
+
+                <!-- Add Order navigation item -->
+                <li class="nav-item">
+                    <a class="orders-tag nav-link text-white" href="/orders/add">
+                        <img src="/svg images/add-svgrepo-com.svg"
+                             alt="Add Order"
+                             width="25"
+                             height="25"
+                             class="ml-2 addorder-icon" style="filter: invert(100%); margin-bottom: 5px;"
+                    >
+                        Add Order
+                    </a>
+                </li>
+
+                <!-- Divider -->
+            <div class="d-flex justify-content-center">
+                <hr class="divider w-75" style="border-top: 2px solid #ffffff;">
+            </div>
+
+            <!-- Reports navigation item -->
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/reports">
+                    <img src="/svg images/stats-svgrepo-com.svg"
+                         alt="Reports"
+                         width="25"
+                         height="25"
+                         class="ml-2" style="filter: invert(100%); margin-bottom: 10px;">
+                    Reports
+                </a>
+            </li>
+
+            <!-- Inventory navigation item -->
+            <li class="nav-item">
+                <a class="nav-link text-white active" href="/inventory">
+                    <img src="/svg images/inventory-svgrepo-com.svg"
+                         alt="Inventory"
+                         width="25"
+                         height="25"
+                         class="ml-2" style="filter: invert(100%); margin-bottom: 10px;">
+                    Inventory
+                </a>
+            </li>
+
+
+                <li class="nav-item mt-auto d-flex justify-content-around" style="margin-top: auto; margin-right: 20px;">
+                    <a class="nav-link text-white " href="/">
+                        <img src="/svg images/logout-svgrepo-com.svg"
+                             alt="Logout"
+                             width="50"
+                             height="50"
+                             class="ml-2 logout-icon" style="filter: brightness(0) saturate(100%) invert(18%) sepia(99%)
+                                                                saturate(6500%) hue-rotate(357deg) brightness(95%) contrast(115%);"
+                    >
+                    Logout
+                    </a>
+                </li>
+
+            
+            </ul>
+    </nav>
+
+    <!--MAIN container to hold content-->
+<div class="container mt-5" style="height: 100%; display: flex; gap: 30px; flex-direction: row; justify-content: center; transform: translateX(75px);">
+
+    <!--Total products section-->
+    <div class="total-products"
+         style="text-align: left; background-color: #ffffff; border-radius: 10px; width: 25%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px;">
+
+         <div style="display: flex; gap: 10px; ">
+             <img src="/svg images/block-svgrepo-com.svg"
+              alt="Total Products"
+              width="35"
+              height="35"
+              class="ml-2" style="filter: invert(0); margin-bottom: 10px;">
+         
+        <p style="opacity: 0.7; margin: 0 0 0px 0; margin-top: 5px;">
+            Total Products
+        </p>
+        </div>
+
+        <h2 th:text="${totalProducts}" style="margin: 0 0 0px 0; margin-left: 40px;">
+            0
+        </h2>
+
+        <p style="opacity: 0.7; margin: 0; margin-left: 40px;">
+            Products in Inventory
+        </p>
+
+    </div>
+
+    <!--How many staff members are in the inventory-->
+    <div class="total-staff"
+         style="text-align: left; background-color: #ffffff; border-radius: 10px; width: 25%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px;">
+
+         <div style="display: flex; gap: 10px; ">
+             <img src="/svg images/users-svgrepo-com.svg"
+              alt="Total Staff"
+              width="35"
+              height="35"
+              class="ml-2" style="filter: invert(0); margin-bottom: 10px;">
+         
+        <p style="opacity: 0.7; margin: 0 0 0px 0; margin-top: 5px;">
+            Total Staff
+        </p>
+        </div>
+
+        <h2 th:text="${totalStaff}" style="margin: 0 0 0px 0; margin-left: 40px;">
+            0
+        </h2>
+
+        <p style="opacity: 0.7; margin: 0; margin-left: 40px;">
+            Staff Members in Inventory
+        </p>
+
+    </div>
+
+<!-- How many orders are in the inventory -->
+    <div class="total-staff"
+         style="text-align: left; background-color: #ffffff; border-radius: 10px; width: 25%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px;">
+
+         <div style="display: flex; gap: 10px; ">
+             <img src="/svg images/shopping-cart-11-svgrepo-com.svg"
+              alt="Total Orders"
+              width="35"
+              height="35"
+              class="ml-2" style="filter: invert(0); margin-bottom: 10px;">
+         
+        <p style="opacity: 0.7; margin: 0 0 0px 0; margin-top: 5px;">
+            Total Orders
+        </p>
+        </div>
+
+        <h2 th:text="${totalOrders}" style="margin: 0 0 0px 0; margin-left: 40px;">
+            0
+        </h2>
+
+        <p style="opacity: 0.7; margin: 0; margin-left: 40px;">
+            Orders in Inventory
+        </p>
+
+    </div>
+
+    <!--Low stock items-->
+<div class="total-low-stock"
+     style="text-align: left; background-color: #ffffff; border-radius: 10px; width: 25%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); padding: 15px;">
+
+    <div style="display: flex; gap: 10px;">
+
+        <div style="background-color: rgb(247, 223, 14); border-radius: 50%;
+                    width: 35px; height: 35px; display: flex;
+                    align-items: center; justify-content: center;">
+
+            <img src="/svg images/warning-svgrepo-com.svg"
+                 alt="Low Stock Items"
+                 width="35"
+                 height="35"
+                 style="filter: invert(100%);">
+        </div>
+
+        <p style="opacity: 0.7; margin: 5px 0 0 0;">
+            Low Stock Items
+        </p>
+
+    </div>
+
+    <h2 th:text="${lowStockCount}"
+        style="margin: 5px 0 5px 40px;">
+        0
+    </h2>
+
+    <p style="opacity: 0.7; margin: 0 0 0 40px;">
+        Low Stock Items in Inventory
+    </p>
+
+</div>
+</div>
+
+
+<!-- Search products section -->
+<div style="margin-left: 10%; padding: 40px; margin-top: 200px;">
+
+    <input type="text"
+           name="searchTerm"
+           class="form-control"
+           placeholder="Search products..."
+           style="width: 30%; margin: 0 auto 20px auto;">
+
+
+    <table style="width: 100%; table-layout: fixed; table-layout: fixed; background-color: #374e74; color: white; border-radius: 20px; border: none;">
+
+        <thead>
+            <tr>
+                <th style="width: 33.33%;">Bread</th>
+                <th style="width: 33.33%;">Apple Pie</th>
+                <th style="width: 33.33%;">Cherry Pie</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Cake</th>
+                <th style="width: 33.33%;">Danish</th>
+                <th style="width: 33.33%;">Croissant</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Eclair</th>
+                <th style="width: 33.33%;">Macaron</th>
+                <th style="width: 33.33%;">Tart</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Pie</th>
+                <th style="width: 33.33%;">Brownie</th>
+                <th style="width: 33.33%;">Muffin</th>
+            </tr>
+            <tr>
+                <th style="width: 33.33%;">Chocolate Donut</th>
+                <th style="width: 33.33%;">Chocolate Cupcake</th>
+                <th style="width: 33.33%;">Hazelnut Beignet</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <tr th:each="item : ${inventory}">
+                <td th:text="${item.product.productName}">Product Name</td>
+                <td th:text="${item.price}">Price</td>
+                <td>
+                    <button class="btn btn-primary">
+                        Add
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div id="search-results" style="display: none; position: 
+    fixed; margin-bottom: 200px;">
+
+<table class="table"
+       style="width: 70%; table-layout: fixed; border-collapse: collapse; 
+       position: fixed; top: 300px; left: 50%; transform: translateX(-44%); border-radius: 10px; border: none;">
+
+    <colgroup>
+        <col style="width: 33.33%;">
+        <col style="width: 33.33%;">
+        <col style="width: 33.33%;">
+    </colgroup>
+
+    <thead>
+        <tr>
+            <th style="border: none;">Product Name</th>
+            <th style="border: none;">Price</th>
+            <th style="border: none;">Action</th>
+        </tr>
+    </thead>
+
+    <tbody id="search-results-container">
+    </tbody>
+</table>
+    </div>
+
+</div>
+
+<!-- Search products script -->
+<script>
+const searchInput = document.querySelector('input[name="searchTerm"]');
+const resultsDiv = document.getElementById("search-results");
+const resultsContainer = document.getElementById("search-results-container");
+
+searchInput.addEventListener("input", async function () {
+
+    const searchTerm = searchInput.value.trim();
+
+    if (searchTerm.length < 2) {
+        resultsContainer.innerHTML = "";
+        resultsDiv.style.display = "none";
+        return;
+    }
+
+    const response = await fetch(
+        `/inventory/search-products?searchTerm=${encodeURIComponent(searchTerm)}`
+    );
+
+    const products = await response.json();
+
+
+
+    resultsContainer.innerHTML = "";
+    resultsDiv.style.display = "block";
+
+products.forEach(product => {
+
+    const result = document.createElement("tr");
+
+    result.innerHTML = `
+        <td>
+            <strong>${product.productName}</strong>
+        </td>
+
+        <td>
+            $${product.price}
+        </td>
+
+        <td>
+            <button class="btn btn-primary">
+                Add
+            </button>
+        </td>
+    `;
+
+                resultsContainer.appendChild(result);
+});
+
+    //        resultsContainer.appendChild(result);
+});
+
+</script>
+
+
+
+
+
+    
+
+
+
+</body>
+</html>
