@@ -26,78 +26,118 @@ public class CustomerController {
 
     public CustomerController(CustomerService customersService) {
         this.customersService = customersService;
+
     }
+
+
+
+
+
+
 
     @GetMapping("/customers")
     public String viewCustomers(Model model) {
-        logger.info("Entering viewCustomers");
+        logger.info("Entering CustomerController.viewCustomers");
 
         model.addAttribute(
                 "customers",
                 customersService.getAllCustomers()
         );
 
-        logger.info("Exiting viewCustomers");
+        logger.info("Exiting CustomerController.viewCustomers");
         return "customers";
     }
 
+
+
+
+
+
+
     @GetMapping("/customers/add")
     public String displayAddCustomerPage(Model model) {
-        logger.info("Entering displayAddCustomerPage");
+        logger.info("Entering CustomerController.displayAddCustomerPage");
 
         model.addAttribute("customer", new CustomerModel());
 
-        logger.info("Exiting displayAddCustomerPage");
+        logger.info("Exiting CustomerController.displayAddCustomerPage");
         return "add-customer";
     }
+
+
+
+
+
+
 
     @PostMapping("/customers/save")
     public String saveCustomer(
             @ModelAttribute("customer") CustomerModel customer) {
 
-        logger.info("Entering saveCustomer");
+        logger.info("Entering CustomerController.saveCustomer");
 
         customersService.saveCustomer(customer);
 
-        logger.info("Customer saved successfully");
+        logger.info("Customer saved successfully.CustomerController.saveCustomer");
         return "redirect:/customers";
     }
+
+
+
+
+
+
+
 
     @GetMapping("/customers/edit/{id}")
     public String displayEditCustomerPage(
             @PathVariable("id") Long id,
             Model model) {
 
-        logger.info("Entering displayEditCustomerPage");
+        logger.info("Entering CustomerController.displayEditCustomerPage");
 
         CustomerModel customer =
                 customersService.getCustomerById(id);
 
         model.addAttribute("customer", customer);
 
-        logger.info("Exiting displayEditCustomerPage");
+        logger.info("Exiting CustomerController.displayEditCustomerPage");
         return "edit-customer";
     }
+
+
+
+
+
+
+
 
     @PostMapping("/customers/update")
     public String editCustomer(
             @ModelAttribute("customer") CustomerModel customer) {
 
-        logger.info("Entering editCustomer");
+        logger.info("Entering CustomerController.editCustomer");
 
         customersService.saveCustomer(customer);
 
-        logger.info("Customer updated successfully");
+        logger.info("Customer updated successfully.CustomerController.editCustomer");
         return "redirect:/customers";
     }
 
+
+
+
+
+
+
+
     @GetMapping("/customers/delete/{id}")
     public String deleteCustomer(@PathVariable("id") Long id) {
-        logger.info("Entering deleteCustomer");
+        logger.info("Entering CustomerController.deleteCustomer");
 
         customersService.deleteCustomer(id);
 
-        logger.info("Customer deleted successfully");
+        logger.info("Customer deleted successfully.CustomerController.deleteCustomer");
         return "redirect:/customers";
     }
 }

@@ -42,11 +42,19 @@ public class InventoryController {
         this.staffService = staffService;
         this.ordersService = ordersService;
     }
+
+
+
+
+
+
+
+
 // View inventory page
 @GetMapping("/inventory")
 public String viewInventory(Model model) {
 
-    logger.info("Entering viewInventory");
+    logger.info("Entering InventoryController.viewInventory");
 
     model.addAttribute(
         "inventory",
@@ -76,10 +84,19 @@ public String viewInventory(Model model) {
         inventoryService.getLowStockItemCount()
     );
 
-    logger.info("Exiting viewInventory");
+    logger.info("Exiting InventoryController.viewInventory");
 
     return "inventory";
 }
+
+
+
+
+
+
+
+
+
 @GetMapping("/inventory/add")
 public String displayAddInventoryItem(Model model) {
 
@@ -92,11 +109,23 @@ public String displayAddInventoryItem(Model model) {
     return "add-inv-item";
 }
 
+
+
+
+
+
+
+
+
 // Search products in inventory
 @GetMapping("/inventory/search")
 public String searchProducts(
+
+
         @RequestParam("searchTerm") String searchTerm,
         Model model) {
+
+    logger.info("Entering InventoryController.searchProducts with searchTerm: {}", searchTerm);
 
     model.addAttribute(
         "searchResults",
@@ -113,13 +142,27 @@ public String searchProducts(
         productsService.getTotalProducts()
     );
 
+    logger.info("Exiting InventoryController.searchProducts");
+
     return "inventory";
 }
 
+
+
+
+
+
+
 @GetMapping("/inventory/search-products")
 @ResponseBody
+
+    
 public List<ProductsModel> searchProducts(
         @RequestParam("searchTerm") String searchTerm) {
+
+    logger.info("Entering InventoryController.searchProducts (AJAX) with searchTerm: {}", searchTerm);
+
+    logger.info("Exiting InventoryController.searchProducts (AJAX)");
 
     return productsService.searchProducts(searchTerm);
 }

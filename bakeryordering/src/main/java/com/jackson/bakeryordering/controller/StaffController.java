@@ -22,76 +22,100 @@ public class StaffController {
         this.staffService = staffService;
     }
 
+
+
+
+
     @GetMapping("/staff")
     public String viewStaff(Model model) {
-        logger.info("Entering viewStaff");
+        logger.info("Entering StaffController.viewStaff");
 
         model.addAttribute(
                 "staff",
                 staffService.getAllStaff()
         );
 
-        logger.info("Exiting viewStaff");
+        logger.info("Exiting StaffController.viewStaff");
         return "staff";
     }
 
+
+
+
+
     @GetMapping("/staff/add")
     public String displayAddStaffPage(Model model) {
-        logger.info("Entering displayAddStaffPage");
+        logger.info("Entering StaffController.displayAddStaffPage");
 
         model.addAttribute("staff", new StaffModel());
 
-        logger.info("Exiting displayAddStaffPage");
+        logger.info("Exiting StaffController.displayAddStaffPage");
         return "add-staff";
     }
+
+
+
+
 
     @PostMapping("/staff/save")
     public String saveStaff(
             @ModelAttribute("staff") StaffModel staff) {
 
-        logger.info("Entering saveStaff");
+        logger.info("Entering StaffController.saveStaff");
 
         staffService.saveStaff(staff);
 
-        logger.info("Staff saved successfully");
+        logger.info("Exiting StaffController.saveStaff");
         return "redirect:/staff";
     }
+
+
+
+
 
     @GetMapping("/staff/edit/{id}")
     public String displayEditStaffPage(
             @PathVariable("id") Long id,
             Model model) {
 
-        logger.info("Entering displayEditStaffPage");
+        logger.info("Entering StaffController.displayEditStaffPage");
 
         StaffModel staff =
                 staffService.getStaffById(id);
 
         model.addAttribute("staff", staff);
 
-        logger.info("Exiting displayEditStaffPage");
+        logger.info("Exiting StaffController.displayEditStaffPage");
         return "edit-staff";
     }
+
+
+
+
 
     @PostMapping("/staff/update")
     public String editStaff(
             @ModelAttribute("staff") StaffModel staff) {
 
-        logger.info("Entering editStaff");
+        logger.info("Entering StaffController.editStaff");
 
         staffService.saveStaff(staff);
 
-        logger.info("Staff updated successfully");
+        logger.info("Exiting StaffController.editStaff");
         return "redirect:/staff";
     }
 
+
+
+
+
     @GetMapping("/staff/delete/{id}")
     public String deleteStaff(@PathVariable("id") Long id) {
-        logger.info("Entering deleteStaff");
+        logger.info("Entering StaffController.deleteStaff");
 
         staffService.deleteStaff(id);
 
-        logger.info("Staff deleted successfully");
+        logger.info("Exiting StaffController.deleteStaff");
         return "redirect:/staff";
     }
 }
