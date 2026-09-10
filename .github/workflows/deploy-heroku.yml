@@ -31,11 +31,6 @@ jobs:
         env:
           HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
         run: |
-          cd bakeryordering
-          git init
-          git config user.email "JWiser1@my.gcu.edu"
-          git config user.name "GitHub Actions"
-          git add .
-          git commit -m "Automated Heroku deployment"
+          git subtree split --prefix bakeryordering -b heroku-deploy
           heroku git:remote -a bakery-ordering-jackson
-          git push heroku HEAD:main --force
+          git push heroku heroku-deploy:main --force
